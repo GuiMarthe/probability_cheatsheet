@@ -1,0 +1,134 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, marvosym}
+\usepackage{pifont}
+\usepackage{lscape}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[bottom]{footmisc}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=0pt}
+\usepackage{xfrac}
+\usepackage[pdftex,
+            pdfauthor={Your Name},
+            pdftitle={Template Example},
+            pdfsubject={Template showcasing cheat sheet patterns},
+            pdfkeywords={template} {example} {cheatsheet}
+            ]{hyperref}
+\usepackage[
+            open,
+            openlevel=2
+            ]{bookmark}
+\usepackage{relsize}
+\usepackage{rotating}
+
+% Custom commands from original
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\setbox0\hbox{$#1#2$}%
+\copy0\kern-\wd0\mkern4mu\box0}}
+
+\newcommand{\noin}{\noindent}
+\newcommand{\logit}{\textrm{logit}}
+\newcommand{\var}{\textrm{Var}}
+\newcommand{\cov}{\textrm{Cov}}
+\newcommand{\corr}{\textrm{Corr}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Bern}{\textrm{Bern}}
+\newcommand{\Bin}{\textrm{Bin}}
+\newcommand{\Beta}{\textrm{Beta}}
+\newcommand{\Gam}{\textrm{Gamma}}
+\newcommand{\Expo}{\textrm{Expo}}
+\newcommand{\Pois}{\textrm{Pois}}
+\newcommand{\Geom}{\textrm{Geom}}
+\newcommand{\HGeom}{\textrm{HGeom}}
+\newcommand{\NBin}{\textrm{NBin}}
+
+% Geometry settings
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+
+\section{Convergência}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Convergência quase certa}
+    \begin{description}
+    \end{description}
+
+\subsection{Convergência em probabilidade}
+    \begin{description}
+    \end{description}
+
+\subsection{Convergência em distribuição}
+    \begin{description}
+    \end{description}
+
+\section{Estimação por Máxima Verossimilhança}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Propriedades}
+    \begin{description}
+    \end{description}
+
+\subsection{Cálculo da EMV}
+    \begin{description}
+    \end{description}
+
+\subsection{Propriedades Assintóticas}
+    \begin{description}
+    \end{description}
+
+\section{Estimadores de Bayes}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Propriedades}
+    \begin{description}
+    \end{description}
+
+\subsection{Cálculo do EB}
+    \begin{description}
+    \end{description}
+
+\subsection{Estimadores sob funções de perda}
+    \begin{description}
+    \end{description}
+
+\section{Estatísticas Suficientes}\smallskip \hrule height 2pt \smallskip
+
+
+
+\end{multicols}
+\end{document}

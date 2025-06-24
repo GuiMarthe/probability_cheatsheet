@@ -1,0 +1,244 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, marvosym}
+\usepackage{pifont}
+\usepackage{lscape}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[bottom]{footmisc}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=0pt}
+\usepackage{xfrac}
+\usepackage[pdftex,
+            pdfauthor={Your Name},
+            pdftitle={Cheat Sheet Template},
+            pdfsubject={Template showcasing cheat sheet patterns},
+            pdfkeywords={template} {cheatsheet} {statistics}
+            ]{hyperref}
+\usepackage[
+            open,
+            openlevel=2
+            ]{bookmark}
+\usepackage{relsize}
+\usepackage{rotating}
+
+% Custom commands from original
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\setbox0\hbox{$#1#2$}%
+\copy0\kern-\wd0\mkern4mu\box0}}
+
+\newcommand{\noin}{\noindent}
+\newcommand{\logit}{\textrm{logit}}
+\newcommand{\var}{\textrm{Var}}
+\newcommand{\cov}{\textrm{Cov}}
+\newcommand{\corr}{\textrm{Corr}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Bern}{\textrm{Bern}}
+\newcommand{\Bin}{\textrm{Bin}}
+\newcommand{\Beta}{\textrm{Beta}}
+\newcommand{\Gam}{\textrm{Gamma}}
+\newcommand{\Expo}{\textrm{Expo}}
+\newcommand{\Pois}{\textrm{Pois}}
+\newcommand{\Geom}{\textrm{Geom}}
+\newcommand{\HGeom}{\textrm{HGeom}}
+\newcommand{\NBin}{\textrm{NBin}}
+
+% Geometry settings
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Basic Concepts}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Fundamental Definitions}
+\begin{description}
+    \item[Random Variable] A function $X: \Omega \to \mathbb{R}$ that assigns a real number to each outcome in the sample space $\Omega$.
+    \item[Distribution] The collection of all possible values and their probabilities. We write $X \sim F$ for "$X$ follows distribution $F$."
+    \item[Independence] Events $A$ and $B$ are independent if:
+    \begin{align*}
+        P(A \cap B) &= P(A)P(B) \\
+        P(A|B) &= P(A) \\
+        A \independent B
+    \end{align*}
+\end{description}
+
+\subsection{Key Probability Rules}
+\begin{description}
+    \item[Bayes' Theorem]
+    \[P(A|B) = \frac{P(B|A)P(A)}{P(B)}\]
+
+    \item[Law of Total Probability] For partition $\{B_i\}$:
+    \[P(A) = \sum_{i} P(A|B_i)P(B_i)\]
+
+    \item[Inclusion-Exclusion]
+    \[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]
+\end{description}
+
+\section{Expected Value and Variance}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Expected Value}
+\begin{minipage}{\linewidth}
+    \centering
+    % Replace with actual figure path when available
+    % \includegraphics[width=1.5in]{figures/expectation.pdf}
+    \textbf{[Expected Value Visualization]}
+\end{minipage}
+
+\begin{description}
+    \item[Definition] The average value of a random variable:
+    \[E(X) = \sum_{x} x \cdot P(X = x) \text{ (discrete)}\]
+    \[E(X) = \int_{-\infty}^{\infty} x f(x) dx \text{ (continuous)}\]
+
+    \item[Linearity] For random variables $X, Y$ and constants $a, b, c$:
+    \[E(aX + bY + c) = aE(X) + bE(Y) + c\]
+
+    \item[Indicator Variables] For event $A$:
+    \[E(I_A) = P(A)\]
+\end{description}
+
+\subsection{Variance and Standard Deviation}
+\begin{description}
+    \item[Variance] Measures spread around the mean:
+    \[\var(X) = E(X^2) - [E(X)]^2\]
+
+    \item[Standard Deviation]
+    \[\text{SD}(X) = \sqrt{\var(X)}\]
+
+    \item[Properties]
+    \begin{itemize}
+        \item $\var(aX + b) = a^2\var(X)$
+        \item If $X \independent Y$: $\var(X + Y) = \var(X) + \var(Y)$
+    \end{itemize}
+\end{description}
+
+\section{Common Distributions}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Binomial Distribution}
+\begin{minipage}{\linewidth}
+    \centering
+    % Replace with actual figure path when available
+    % \includegraphics[width=1.2in]{figures/binomial.pdf}
+    \textbf{[Binomial PMF Plot]}
+\end{minipage}
+
+Let $X \sim \Bin(n, p)$. We know:
+
+\begin{description}
+    \item[Story] $X$ counts successes in $n$ independent trials, each with success probability $p$.
+
+    \item[Example] Coin flips: 10 flips of fair coin gives $\Bin(10, 0.5)$. Basketball: 15 free throws with 80\% success rate gives $\Bin(15, 0.8)$.
+
+    \item[PMF]
+    \[P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}\]
+
+    \item[Properties]
+    \begin{itemize}
+        \item $E(X) = np$
+        \item $\var(X) = np(1-p)$
+        \item Sum property: $\Bin(n,p) + \Bin(m,p) = \Bin(n+m,p)$ (if independent)
+        \item Normal approximation: $\Bin(n,p) \approx \N(np, np(1-p))$ for large $n$
+    \end{itemize}
+\end{description}
+
+\subsection{Poisson Distribution}
+Let $X \sim \Pois(\lambda)$. We know:
+
+\begin{description}
+    \item[Story] $X$ counts rare events in a fixed interval, occurring at average rate $\lambda$.
+
+    \item[Example] Emails per hour, accidents per day, typos per page. Server crashes averaging 3 per month: $\Pois(3)$.
+
+    \item[PMF]
+    \[P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}\]
+
+    \item[Properties]
+    \begin{itemize}
+        \item $E(X) = \lambda$
+        \item $\var(X) = \lambda$
+        \item Sum property: $\Pois(\lambda) + \Pois(\mu) = \Pois(\lambda + \mu)$ (if independent)
+        \item Poisson approximation: $\Bin(n,p) \approx \Pois(np)$ when $n$ large, $p$ small
+    \end{itemize}
+\end{description}
+
+\subsection{Normal Distribution}
+Let $X \sim \N(\mu, \sigma^2)$. We know:
+
+\begin{description}
+    \item[Story] $X$ is a continuous random variable with bell-shaped distribution, symmetric around $\mu$.
+
+    \item[PDF]
+    \[f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]
+
+    \item[Properties]
+    \begin{itemize}
+        \item $E(X) = \mu$
+        \item $\var(X) = \sigma^2$
+        \item Linear transformation: $aX + b \sim \N(a\mu + b, a^2\sigma^2)$
+        \item Sum property: $\N(\mu_1, \sigma_1^2) + \N(\mu_2, \sigma_2^2) = \N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$ (if independent)
+    \end{itemize}
+\end{description}
+
+\section{Problem-Solving Strategies}\smallskip \hrule height 2pt \smallskip
+
+\subsection{Common Techniques}
+\begin{description}
+    \item[Linearity of Expectation] Break complex $X$ into sum: $X = X_1 + X_2 + \cdots + X_n$ where $X_i$ are simpler.
+
+    \item[Indicator Variables] For counting problems, use $I_A = 1$ if event $A$ occurs, 0 otherwise. Then $E(I_A) = P(A)$.
+
+    \item[Conditioning] When stuck, condition on useful event $B$:
+    \[P(A) = P(A|B)P(B) + P(A|B^c)P(B^c)\]
+    \[E(X) = E(X|B)P(B) + E(X|B^c)P(B^c)\]
+
+    \item[Symmetry] Look for symmetric situations to simplify calculations.
+
+    \item[LOTUS] Law of the Unconscious Statistician:
+    \[E(g(X)) = \sum_x g(x)P(X = x)\]
+\end{description}
+
+\subsection{Distribution Recognition}
+\begin{description}
+    \item[Binomial] Fixed number of independent trials, each success/failure
+    \item[Geometric] Number of failures before first success
+    \item[Poisson] Rare events in fixed interval
+    \item[Hypergeometric] Sampling without replacement
+    \item[Normal] Continuous, bell-shaped, often from CLT
+\end{description}
+
+\end{multicols}
+\end{document}
