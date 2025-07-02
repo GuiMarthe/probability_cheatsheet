@@ -1,4 +1,9 @@
 \documentclass[10pt,landscape]{article}
+
+% LuaTeX compatibility
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
 \usepackage{multicol}
 \usepackage{calc}
 \usepackage{ifthen}
@@ -16,7 +21,7 @@
 \usepackage{pdfpages}
 \usepackage{wrapfig}
 \usepackage{enumitem}
-\setlist[description]{leftmargin=0pt}
+\setlist[description]{leftmargin=0pt,itemsep=4pt,parsep=0pt,topsep=0pt}
 \usepackage{xfrac}
 \usepackage[pdftex,
             pdfauthor={Your Name},
@@ -59,15 +64,15 @@
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
                                 {0.5ex plus .2ex}%x
-                                {\normalfont\large\bfseries}}
+                                {\normalfont\small\bfseries}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
                                 {-1explus -.5ex minus -.2ex}%
                                 {0.5ex plus .2ex}%
-                                {\normalfont\normalsize\bfseries}}
+                                {\normalfont\footnotesize\bfseries}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
                                 {1ex plus .2ex}%
-                                {\normalfont\small\bfseries}}
+                                {\normalfont\scriptsize\bfseries}}
 \makeatother
 \setcounter{secnumdepth}{0}
 \setlength{\parindent}{0pt}
@@ -75,7 +80,7 @@
 
 \begin{document}
 \raggedright
-\footnotesize
+\scriptsize
 \begin{multicols}{3}
 
 \setlength{\premulticols}{1pt}
@@ -85,50 +90,192 @@
 
 
 \section{Convergência}\smallskip \hrule height 2pt \smallskip
-
-\subsection{Convergência quase certa}
     \begin{description}
+        \item[Quase certa] $X_n \xrightarrow{q.c.} X$ se $P\left(\lim_{n \to \infty} X_n = X\right) = 1$
+        \item[Em probabilidade] $X_n \xrightarrow{P} X$ se $\lim_{n \to \infty} P\left(\left|X_n - X\right| > \epsilon\right) = 0$ para todo $\epsilon > 0$
+        \item[Em distribuição] $X_n \xrightarrow{d} X$ se $\lim_{n \to \infty} F_{X_n}(x) = F_X(x)$ em pontos de continuidade de $F_X$
+        \item[Borel-Cantelli I] Se $\sum_{n=1}^{\infty} P(A_n) < \infty$, então $P\left(\limsup_{n \to \infty} A_n\right) = 0$
+        \item[Borel-Cantelli II] Se $(A_n)$ são independentes e $\sum_{n=1}^{\infty} P(A_n) = \infty$, então $P\left(\limsup_{n \to \infty} A_n\right) = 1$
+        \item[Limite superior] $\limsup_{n \to \infty} A_n = \bigcap_{n=1}^{\infty} \bigcup_{k=n}^{\infty} A_k$ = $\left\{A_n \text{ ocorre infinitas vezes}\right\}$
+        \item[Limite inferior] $\liminf_{n \to \infty} A_n = \bigcup_{n=1}^{\infty} \bigcap_{k=n}^{\infty} A_k$ = $\left\{A_n \text{ ocorre finitas vezes}\right\}$
+        \item[Lei Fraca dos Grandes Números] $(X_n)$ i.i.d., $E[X_1] = \mu$, $\text{Var}(X_1) < \infty \Rightarrow \overline{X}_n \xrightarrow{P} \mu$ ou $\frac{S_n}{n} \xrightarrow{P} \mu$
+        \item[Lei Forte dos Grandes Números] $(X_n)$ i.i.d., $E\left[\left|X_1\right|\right] < \infty$, $E[X_1] = \mu \Rightarrow \overline{X}_n \xrightarrow{q.c.} \mu$ ou $\frac{S_n}{n} \xrightarrow{q.c.} \mu$
+        \item[Desigualdade de Markov] $X \geq 0$, $E[X] < \infty \Rightarrow P\left(X \geq a\right) \leq \frac{E[X]}{a}$ para $a > 0$
+        \item[Desigualdade de Chebyshev] $E\left[\left(X - c\right)^2\right] < \infty \Rightarrow P\left(\left(X - c\right)^2 \geq \varepsilon^2\right) \leq \frac{E\left[\left(X - c\right)^2\right]}{\varepsilon^2}$ onde $\left(X - c\right)^2 \geq \varepsilon^2 \Leftrightarrow \left|X - c\right| \geq \varepsilon$. Formas usuais: $P\left(\left|X - \mu\right| \geq \varepsilon\right) \leq \frac{\sigma^2}{\varepsilon^2}$ e $P\left(\left|X - \mu\right| \geq k\sigma\right) \leq \frac{1}{k^2}$
+
+        \item[Relações de convergência] $X_n \xrightarrow{q.c.} X \Rightarrow X_n \xrightarrow{P} X \Rightarrow X_n \xrightarrow{d} X$ e $X_n \xrightarrow{d} c \text{ (constante)} \Rightarrow X_n \xrightarrow{P} c$
+        \item[Método Delta] Se $\sqrt{n}\left(Y_n - \mu\right) \xrightarrow{d} N\left(0, \sigma^2\right)$ e $g$ é derivável em $\mu$, então $\sqrt{n}\left(g\left(Y_n\right) - g\left(\mu\right)\right) \xrightarrow{d} N\left(0, \sigma^2\left(g'\left(\mu\right)\right)^2\right)$
     \end{description}
 
-\subsection{Convergência em probabilidade}
+\subsection{Teorema Central do Limite}
     \begin{description}
+        \item[Forma assintótica] $(X_n)$ i.i.d., $E[X_1] = \mu$, $\text{Var}(X_1) = \sigma^2 < \infty \Rightarrow \frac{S_n - n\mu}{\sigma\sqrt{n}} \xrightarrow{d} N(0,1)$ onde $S_n = \sum_{i=1}^n X_i$
+        \item[Aprox. para somas] Se $Y = X_1 + \cdots + X_n$ com $X_i$ i.i.d., então $Y \approx N\left(n\mu, n\sigma^2\right)$ para $n$ grande
+        \item[Aprox. para médias] $\overline{X}_n = \frac{1}{n}\sum_{i=1}^n X_i \approx N\left(\mu, \frac{\sigma^2}{n}\right)$ para $n$ grande
+        \item[Padronização] $\frac{\sqrt{n}\left(\overline{X}_n - \mu\right)}{\sigma} \xrightarrow{d} N(0,1)$, $\sqrt{n}\left(\overline{X}_n - \mu\right)} \xrightarrow{d} N(0,\sigma^2)$
     \end{description}
 
-\subsection{Convergência em distribuição}
-    \begin{description}
-    \end{description}
+\subsection{Teorema de Slutsky}
+    \begin{minipage}[t]{0.47\linewidth}
+        Se $g: \mathbb{R} \to \mathbb{R}$ é contínua:\\
+        (a) $X_n \xrightarrow{q.c.} X \Rightarrow g(X_n) \xrightarrow{q.c.} g(X)$\\
+        (b) $X_n \xrightarrow{P} X \Rightarrow g(X_n) \xrightarrow{P} g(X)$\\
+        (c) $X_n \xrightarrow{d} X \Rightarrow g(X_n) \xrightarrow{d} g(X)$
+    \end{minipage}
+    \hspace{3pt}\vrule width 0.5pt\hspace{3pt}
+    \begin{minipage}[t]{0.47\linewidth}
+        Se $X_n \xrightarrow{d} X$ e $Y_n \xrightarrow{P} c$:\\
+        (a) $X_n + Y_n \xrightarrow{d} X + c$\\
+        (b) $X_n - Y_n \xrightarrow{d} X - c$\\
+        (c) $Y_n X_n \xrightarrow{d} cX$\\
+        (d) $\frac{X_n}{Y_n} \xrightarrow{d} \frac{X}{c}$ se $c \neq 0$
+    \end{minipage}
+
+\section{Estimadores de Bayes}\smallskip \hrule height 2pt \smallskip
+    Na abordagem Bayesiana, os estimadores são calculados considerando a distribuição a priori dos parâmetros e a função de verossimilhança dos dados.
+
+    \subsection{Cálculo da Distribuição a Posteriori}
+        \begin{description}
+            \item[Teorema de Bayes] $f\left(\theta|\boldsymbol{x}\right) = \frac{f\left(\theta\right)f\left(\boldsymbol{x}|\theta\right)}{\int_\Theta f\left(\theta\right)f\left(\boldsymbol{x}|\theta\right)d\theta} \propto f\left(\theta\right) \cdot f\left(\boldsymbol{x}|\theta\right)$
+            \item[Passos principais] (1) Identificar verossimilhança do modelo dos dados, (2) Escolher priori apropriada, (3) Multiplicar priori × verossimilhança, (4) Normalizar (ou reconhecer família de distribuições)
+            \item[Prioris conjugadas] Facilitam o cálculo - produzem posterioris na mesma família da priori. Basta atualizar hiperparâmetros com dados observados
+            \item[Exemplo rápido] $X|\theta \sim \Bin\left(n,\theta\right)$, $\theta \sim \Beta\left(a,b\right) \Rightarrow \theta|X=x \sim \Beta\left(a+x, b+n-x\right)$
+        \end{description}
+
+    \subsection{Estimação Pontual e Funções de Perda}
+        \begin{description}
+            \item[Risco a posteriori] $r_{\boldsymbol{x}}\left(d\right) = \int_\Theta L\left(d,\theta\right) \, dP\left(\theta|\boldsymbol{x}\right)$ (minimizar perda esperada a posteriori)
+            \item[Perda quadrática] $L\left(d,\theta\right) = \left(d-\theta\right)^2 \Rightarrow \delta^*\left(\boldsymbol{X}\right) = E\left[\theta|\boldsymbol{X}\right]$ (média a posteriori)
+            \item[Perda absoluta] $L\left(d,\theta\right) = \left|d-\theta\right| \Rightarrow \delta^*\left(\boldsymbol{X}\right) = \text{Med}\left(\theta|\boldsymbol{X}\right)$ (mediana a posteriori)
+            \item[Risco de Bayes] Sob perda quadrática: $\rho^*\left(P\right) = E\left[\text{Var}\left(\theta|\boldsymbol{X}\right)\right]$ (variância a posteriori esperada)
+            \item[Exemplo Poisson] Com priori Gamma: $\delta^*\left(\boldsymbol{X}\right) = \frac{b}{b+n} \cdot \frac{a}{b} + \frac{n}{b+n} \cdot \bar{X}$ (média ponderada: priori + amostra)
+        \end{description}
+
+    \subsection{Famílias Conjugadas}
+        \begin{description}
+            \item[Definição intuitiva] Família de prioris $\mathcal{C}$ é conjugada à verossimilhança $\mathcal{P}$ se: priori $\in \mathcal{C}$ + dados de $\mathcal{P} \Rightarrow$ posteriori $\in \mathcal{C}$
+            \item[Vantagens] (1) Tratabilidade analítica - posteriori conhecida, (2) Computação simples - apenas atualizar hiperparâmetros, (3) Interpretação clara de como dados mudam crenças
+            \item[Insight chave] Conjugação é conveniência matemática, não requisito. Prioris não-conjugadas requerem métodos numéricos (MCMC). A priori conjugada "fala a mesma linguagem matemática" da verossimilhança
+        \end{description}
+
 
 \section{Estimação por Máxima Verossimilhança}\smallskip \hrule height 2pt \smallskip
 
 \subsection{Propriedades}
     \begin{description}
+        \item[Invariância] Se $\hat{\theta}$ é um estimador de $\theta$, então $g(\hat{\theta})$ é um estimador de $g(\theta)$ para qualquer função $g$.
+        \item[Consistência] Se $\hat{\theta}_n$ é uma sequência de estimadores de $\theta$, então $\hat{\theta}_n \xrightarrow{p} \theta$.
     \end{description}
 
 \subsection{Cálculo da EMV}
     \begin{description}
+        \item[Método] Maximizar $L(\theta | \boldsymbol{x}) = f(\boldsymbol{x} | \theta) \overset{\tex{ind.}}{=} \prod_{i=1}^n f(x_i|\theta)$ ou $\ell(\theta | \boldsymbol{x}) = \sum_{i=1}^n \log f(x_i|\theta)$
+        \item[Condição I] $\frac{d\ell(\theta | \boldsymbol{x})}{d\theta} = 0$ (função score)
+        \item[Condição II] $\frac{d^2\ell(\theta)}{d\theta^2} < 0$ (segunda derivada negativa) no ponto de máximo.
+        \item[Notação] $f(\boldsymbol{x} | \theta) = V_{\boldsymbol{x}}(\theta)$ e $\text{log}f(\boldsymbol{x} | \theta) = \lambda(\theta, \boldsymbol{x})$
     \end{description}
+    \subsection{Condições de regularidade}
+        \begin{description}
+            \item[1] Podemos trocar a ordem de derivada e integração (portanto é diferenciabilidade é condição necessária).
+            \item[2] O suporte da verossimilhança não depende do parâmetro $\theta$.
+        \end{description}
 
 \subsection{Propriedades Assintóticas}
     \begin{description}
-    \end{description}
-
-\section{Estimadores de Bayes}\smallskip \hrule height 2pt \smallskip
-
-\subsection{Propriedades}
-    \begin{description}
-    \end{description}
-
-\subsection{Cálculo do EB}
-    \begin{description}
-    \end{description}
-
-\subsection{Estimadores sob funções de perda}
-    \begin{description}
+        \item[Normalidade] $\sqrt{n}(\hat{\theta}_n - \theta) \xrightarrow{d} N(0, I^{-1}(\theta))$
+        \item[Eficiência] EMV atinge a cota de Cramér-Rao assintóticamente.
     \end{description}
 
 \section{Estatísticas Suficientes}\smallskip \hrule height 2pt \smallskip
+    \begin{description}
+        \item[Suficiência frequentista] $T(\boldsymbol X)$ é suficiente para $\theta$ se $f\left(\boldsymbol x | T(\boldsymbol x),\theta\right) = f\left(\boldsymbol x | T(\boldsymbol x)\right)$
+        \item[Suficiência Bayesiana] $T(\boldsymbol X)$ é suficiente para $\theta$ se $f\left(\theta | T(\boldsymbol x)\right) = f\left(\theta | \boldsymbol x\right)$
+        \item[Critério da fatoração de Neyman-Pearson] $T(X)$ é suficiente $\Leftrightarrow$ $f( \boldsymbol x|\theta) = g(T( \boldsymbol x),\theta)h( \boldsymbol  x)$
+    \end{description}
+
+\subsection{Propriedades}
+    \begin{description}
+        \item[Minimal] $T$ é minimal suficiente se é função de qualquer outra estatística suficiente
+    \end{description}
 
 
+\section{Estimadores não viesados de variância uniformemente mínima}\smallskip \hrule height 2pt \smallskip
 
-\end{multicols}
+\subsection{Teorema de Lehmann-Scheffé}
+    \begin{description}
+        \item[Enunciado] Se $T(\boldsymbol{X})$ é completa e suficiente, então qualquer estimador não viesado baseado em $T(\boldsymbol{X})$ é ENVVUM e é único.
+        \item[Estatística Completa] $T(\boldsymbol{X})$ é completa se $E[g(T(\boldsymbol{X}))] = 0$ para todo $\theta \Rightarrow g(T(\boldsymbol{X})) = 0$ q.c.
+    \end{description}
+
+\subsection{Teorema de Rao-Blackwell}
+    \begin{description}
+        \item[Enunciado] Se $\delta(\boldsymbol{X})$ é não viesado e $T(\boldsymbol{x})$ é suficiente, então $\delta^*(\boldsymbol{X}) = E[\delta(\boldsymbol{X})|T(\boldsymbol{X})] = g(T(\boldsymbol{X}))$ tem variância menor ou igual
+        \item[Resultado] $\var(\delta^*(\boldsymbol{X})) \leq \var(\delta(\boldsymbol{X}))$ com igualdade se e somente se $\delta(\boldsymbol{X})$ é função de $T(\boldsymbol{X})$
+    \end{description}
+
+\subsection{Rao-Blackwellização}
+    \begin{description}
+        \item[Processo] Melhorar estimador não viesado condicionando em estatística suficiente
+        \item[Fórmula] $\hat{\theta}^{RB} = E[\hat{\theta}|T(\boldsymbol{X})]$ onde $T(\boldsymbol{X})$ é suficiente para $\theta$
+    \end{description}
+
+    \subsection{Desigualdade de Cramér-Rao}
+        \begin{description}
+            \item[Limite inferior de Cramér-Rao] $\var(\hat{\theta}) \geq \frac{\left[g'(\theta)\right]^2}{I(\theta)}$ onde $I(\theta)$ é a informação de Fisher.
+            \item[Informação de Fisher] $I(\theta) = E\left[\left(\frac{\partial}{\partial \theta} \log f(\boldsymbol{X};\theta)\right)^2\right]$ = $-E\left[\left(\frac{\partial^2}{\partial \theta^2} \log f(\boldsymbol{X};\theta)\right)\right]$
+            \item[Informação de Fisher para v.a. i.i.d] $I(\theta) =  $-n E\left[\left(\frac{\partial^2}{\partial \theta^2} \log f(\boldsymbol{X};\theta)\right)\right]$
+            \item[Relação com ENVVUM] se a variância do estimador coincide com o limite inferior de Cramér-Rao, o estimador é ENVVUM.
+        \end{description}
+
+    \section{Intervalos de confiança}\smallskip \hrule height 2pt \smallskip
+    \begin{description}
+    \item[Estimador Intervalar] $ \left[ L(\boldsymbol{X}, U(\boldsymbol{X}))\right]$ onde $L$ e $U$ são estatisticas e v.a.
+    \item[Nível de confiança] $P( L ( \boldsymbol{X} \leq \theta \leq U(\boldsymbol{X})) ) = 1-\alpha = \gamma$
+    \item[Quantidade Pivotal] $Q(\boldsymbol{X})$ é uma quantidade pivotal se $Q(\boldsymbol{X})$ tem distribuição não dependente de $\theta$.
+    \item[QP média amostral] $X_i$ \sim \text{N}(\mu, \sigma^2)$ então $\frac{\bar{X} - \mu}{\sqrt{\frac{\sigma^2}{n}}} \sim N(0,1)$
+    \item[QP variância amostral] $\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$
+    \item[Processo] Achar uma QP envolvendo o parâmetro que se quer construir IC e isolar o parâmetro em questão respeitando a distribuição da QP. Os intervalos inferior e superior devem respeitar a assimeria da distribuição. Parâmetros extras são preenchidos com estimativas e a distribuição da QP deve levar isso em consideração.
+    \end{description}
+
+    \section{Distribuições Amostrais}\smallskip \hrule height 2pt \smallskip
+
+    \begin{center}
+    \begin{tabular}{cc}
+    \hline
+    $X_i$ & $\sum_{i=1}^n X_i \sim$ \\
+    \hline
+    $\text{Poisson}(\theta)$ &  $\text{Poisson}(n \theta)$ \\
+    $\text{Exp}(\theta)$ & $\text{Gama}(n, \theta) \rightarrow 2 \theta \text{Gama}(n, \frac{1}{2}) \sim \chi^2_{2n}$ \\
+    $\text{Normal}(\mu, \sigma^2)$ & $\text{Normal}(n \mu, n \sigma^2) $ \\
+    $\text{Gama}(\alpha, \beta)$ &\text{Gama}(n \alpha, \beta)$ \\
+    $\text{Bernoulli}(p)$ & $\text{Binomial}(n, p)$ \\
+    \hline
+    \end{tabular}
+    \end{center}
+
+    \begin{description}
+
+    \item[Soma de normais padrão ao quadrado] $X_i \sim N(0,1)$ então $\sum_{i=1}^{n} X_i^2 \sim \chi_n^2$
+    \item[Desvios da média populacional] $X_i \sim N(\mu, \sigma^2)$ então $\frac{\sum_{i=1}^{n}(X_i - \mu)^2}{\sigma^2} \sim \chi_n^2$
+    \item[Desvios da média amostral] $X_i \sim N(\mu, \sigma^2)$ então $\frac{\sum_{i=1}^{n}(X_i - \bar{X})^2}{\sigma^2} \sim \chi_{n-1}^2$
+    \end{description}
+
+    \end{multicols}
+
+    \section{Lista de famílias Conjugadas}\smallskip \hrule height 2pt \smallskip
+
+        \begin{description}
+            \item[Bernoulli/Binomial] Priori: $p \sim \text{Beta}(\alpha, \beta) \Rightarrow$ Posteriori: $p|\boldsymbol{x} \sim \text{Beta}\left(\alpha + \sum x_i, \beta + n - \sum x_i\right)$
+            \item[Poisson] Priori: $\lambda \sim \text{Gama}(\alpha, \beta) \Rightarrow$ Posteriori: $\lambda|\boldsymbol{x} \sim \text{Gama}\left(\alpha + \sum x_i, \beta + n\right)$
+            \item[Geométrica] Priori: $p \sim \text{Beta}(\alpha, \beta) \Rightarrow$ Posteriori: $p|\boldsymbol{x} \sim \text{Beta}\left(\alpha + n, \beta + \sum x_i\right)$
+            \item[Normal (média desconhecida)] Priori: $\mu \sim \text{Normal}(\mu_0, \sigma_0^2) \Rightarrow$ Posteriori: $\mu|\boldsymbol{x} \sim \text{Normal}\left(\frac{\sigma^2 \mu_0 + \sigma_0^2 n \bar{x}}{\sigma^2 + n\sigma_0^2}, \frac{\sigma^2 \cdot \sigma_0^2}{\sigma^2 + n\sigma_0^2}\right)$
+            \item[Normal (variância desconhecida)] Priori: $\sigma^2 \sim \text{Gama-Inversa}(\alpha, \beta) \Rightarrow$ Posteriori: $\sigma^2|\boldsymbol{x} \sim \text{Gama-Inversa}\left(\alpha + \frac{n}{2}, \beta + \frac{1}{2}\sum(x_i - \mu)^2\right)$
+            \item[Normal Multivariada] Priori: $\Sigma \sim \text{Wishart}(\nu, \Psi) \Rightarrow$ Posteriori: $\Sigma|\boldsymbol{x} \sim \text{Wishart}\left(n + \nu, \Psi + \sum(\mathbf{x}_i - \mu)(\mathbf{x}_i - \mu)^T\right)$
+            \item[Exponencial] Priori: $\lambda \sim \text{Gama}(\alpha, \beta) \Rightarrow$ Posteriori: $\lambda|\boldsymbol{x} \sim \text{Gama}\left(\alpha + n, \beta + \sum x_i\right)$
+            \item[Gama] Priori: $\beta \sim \text{Gama}(a_0, b_0) \Rightarrow$ Posteriori: $\beta|\boldsymbol{x} \sim \text{Gama}\left(a_0 + n\alpha, b_0 + \sum x_i\right)$
+        \end{description}
+
+
+\section{Teste de hipóteses}\smallskip \hrule height 2pt \smallskip
+
 \end{document}

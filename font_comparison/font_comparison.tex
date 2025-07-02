@@ -1,0 +1,156 @@
+\documentclass[10pt]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, marvosym}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=0pt}
+\usepackage{xfrac}
+\usepackage[T1]{fontenc}
+
+% Custom commands from template
+\newcommand{\var}{\textrm{Var}}
+\newcommand{\cov}{\textrm{Cov}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Bern}{\textrm{Bern}}
+\newcommand{\Bin}{\textrm{Bin}}
+\newcommand{\Pois}{\textrm{Pois}}
+
+\geometry{top=1cm,left=1.5cm,right=1.5cm,bottom=1cm}
+\pagestyle{empty}
+
+% Sample content macro
+\newcommand{\sampleContent}{
+\subsection{Fundamental Definitions}
+\begin{description}
+    \item[Random Variable] A function $X: \Omega \to \mathbb{R}$ that assigns a real number to each outcome in the sample space $\Omega$.
+    \item[Independence] Events $A$ and $B$ are independent if:
+    \begin{align*}
+        P(A \cap B) &= P(A)P(B) \\
+        P(A|B) &= P(A)
+    \end{align*}
+\end{description}
+
+\subsection{Key Probability Rules}
+\textbf{Bayes' Theorem:} $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$
+
+\textbf{Law of Total Probability:} For partition $\{B_i\}$: $P(A) = \sum_{i} P(A|B_i)P(B_i)$
+
+\subsection{Expected Value}
+The average value of a random variable:
+\[E(X) = \sum_{x} x \cdot P(X = x) \text{ (discrete)}\]
+\[E(X) = \int_{-\infty}^{\infty} x f(x) dx \text{ (continuous)}\]
+
+\textbf{Linearity:} $E(aX + bY + c) = aE(X) + bE(Y) + c$
+
+\textbf{Variance:} $\var(X) = E(X^2) - [E(X)]^2$
+
+\subsection{Common Distributions}
+\textbf{Binomial:} $X \sim \Bin(n, p)$ has PMF $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$
+
+\textbf{Poisson:} $X \sim \Pois(\lambda)$ has PMF $P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$
+
+\textbf{Normal:} $X \sim \N(\mu, \sigma^2)$ has PDF $f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+
+Properties: $E(X) = \mu$, $\var(X) = \sigma^2$
+}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Font Comparison for Probability Cheatsheet}\\
+{\large Choose Your Preferred Academic Font}
+\end{center}
+
+\vspace{0.5cm}
+
+\section{1. Computer Modern (Default LaTeX)}
+\sampleContent
+
+\vspace{0.3cm}
+\noindent\textbf{To use:} No package needed (default LaTeX font)
+
+\clearpage
+
+% Times New Roman
+\usepackage{newtxtext,newtxmath}
+\section{2. Times New Roman (Most Professional)}
+\sampleContent
+
+\vspace{0.3cm}
+\noindent\textbf{To use:} \verb|\usepackage{newtxtext,newtxmath}|
+
+\clearpage
+
+% Reset to default, then load Palatino
+\normalfont
+\usepackage{mathpazo}
+\section{3. Palatino (Academic Elegance)}
+\sampleContent
+
+\vspace{0.3cm}
+\noindent\textbf{To use:} \verb|\usepackage{mathpazo}|
+
+\clearpage
+
+% Reset and load Charter
+\normalfont
+\usepackage{charter}
+\section{4. Charter (Clean \& Readable)}
+\sampleContent
+
+\vspace{0.3cm}
+\noindent\textbf{To use:} \verb|\usepackage{charter}|
+
+\clearpage
+
+% Summary page
+\normalfont
+\begin{center}
+{\Large\bfseries Font Comparison Summary}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\rule{\textwidth}{0.4pt}
+\vspace{0.5cm}
+
+\textbf{Quick Comparison Guide:}
+
+\vspace{0.3cm}
+
+\begin{tabular}{ll}
+\textbf{Times New Roman} & Most professional, widely recognized \\
+\textbf{Palatino} & Elegant, excellent for academic work \\
+\textbf{Charter} & Clean, great readability for dense math \\
+\textbf{Computer Modern} & Classic LaTeX, familiar to academics \\
+\end{tabular}
+
+\vspace{0.5cm}
+
+\textbf{My Recommendation:} \\
+For a probability cheatsheet that needs to look serious and professional, \\
+\textbf{Times New Roman} provides the best balance of professionalism \\
+and mathematical readability.
+
+\vspace{0.3cm}
+\rule{\textwidth}{0.4pt}
+\end{center}
+
+\vspace{1cm}
+
+\textbf{Instructions:}
+\begin{enumerate}
+    \item Review each font option in this PDF
+    \item Choose your preferred font
+    \item Add the corresponding package to your main cheatsheet file
+    \item Recompile to see the change
+\end{enumerate}
+
+\end{document}
