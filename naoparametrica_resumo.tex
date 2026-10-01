@@ -62,15 +62,15 @@
 \smallskip
 \textbf{Convenções.} $X_1,\dots,X_n$ i.i.d. com função de distribuição (FD) $F$. Toda função aparece com o seu argumento: $F(y)$, $g(y)$, $K(u)$, etc. A letra $y$ é sempre a variável de integração ou o argumento de uma FD; $x_0$ é um ponto fixo.
 
-\textbf{Ordens.} $b_n>0$ é uma sequência determinística.
-\begin{itemize}
-  \item \emph{Números} (viés, variância, MSE, $\E[\cdot]$, $\P(\cdot)$), com $a_n\ge0$:
-  $a_n=O(b_n)$ se existe $C>0$, que não depende de $n$, com $a_n\le C\,b_n$ para $n$ grande; \ $a_n=o(b_n)$ se $a_n/b_n\to0$.
-  O mesmo vale com $h\to0$ no lugar de $n\to\infty$, e com $C$ que não depende de $x$ (cota uniforme).
-  \item \emph{V.a., trajetória a trajetória:} $Z_n=O(b_n)$ q.c. se, para quase todo $\omega$, a sequência de números $|Z_n(\omega)|$ é $O(b_n)$.
-  \item \emph{V.a., em probabilidade:} $Z_n=O_P(b_n)$ se, para todo $\eta>0$, existem $M,N$ com $\P(|Z_n|>M\,b_n)<\eta$ para todo $n\ge N$; \ $Z_n=o_P(b_n)$ se $Z_n/b_n\pto0$.
-  \item \emph{Relações:} $Z_n=O(b_n)$ q.c. $\Rightarrow Z_n=O_P(b_n)$. Se $b_n\to0$: $O(b_n)$ q.c. $\Rightarrow Z_n\qc0$, e $O_P(b_n)\Rightarrow Z_n\pto0$ (mas não $\qc$).
-\end{itemize}
+%=====================================================================
+\section{Ordens}\secrule
+$b_n>0$ é uma sequência determinística.
+\begin{description}
+  \item[Números] Para viés, variância, MSE, $\E[\cdot]$, $\P(\cdot)$, com $a_n\ge0$: $a_n=O(b_n)$ se existe $C>0$, que não depende de $n$, com $a_n\le C\,b_n$ para $n$ grande; \ $a_n=o(b_n)$ se $a_n/b_n\to0$. O mesmo vale com $h\to0$ no lugar de $n\to\infty$, e com $C$ que não depende de $x$ (cota uniforme).
+  \item[V.a., trajetória a trajetória] $Z_n=O(b_n)$ q.c. se, para quase todo $\omega$, a sequência de números $|Z_n(\omega)|$ é $O(b_n)$.
+  \item[V.a., em probabilidade] $Z_n=O_P(b_n)$ se, para todo $\eta>0$, existem $M,N$ com $\P(|Z_n|>M\,b_n)<\eta$ para todo $n\ge N$; \ $Z_n=o_P(b_n)$ se $Z_n/b_n\pto0$.
+  \item[Relações] $Z_n=O(b_n)$ q.c. $\Rightarrow Z_n=O_P(b_n)$. Se $b_n\to0$: $O(b_n)$ q.c. $\Rightarrow Z_n\qc0$, e $O_P(b_n)\Rightarrow Z_n\pto0$ (mas não $\qc$).
+\end{description}
 
 %=====================================================================
 \section{Convergência}\secrule
