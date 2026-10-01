@@ -98,12 +98,7 @@ O mesmo vale com $h\to0$ no lugar de $n\to\infty$, e com $C$ que não depende de
 \subsection{Molde: consistência por Lipschitz}
 Se existe $L>0$ tal que, para quaisquer FDs $G_1,G_2$,
 \[|T(G_1)-T(G_2)|\le L\sup_{y}|G_1(y)-G_2(y)|,\]
-então $|T(\Fn)-T(F)|\le L\,D_n$, logo $T(\Fn)\qc T(F)$, com $|T(\Fn)-T(F)|=O\big(\sqrt{\log n/n}\big)$ q.c. \\
-\emph{Exemplo:} $T(F)=\int_0^MF(y)^2\,dy$. Como $|a^2-b^2|=|a+b|\,|a-b|\le2|a-b|$ para $a,b\in[0,1]$, vale $L=2M$.
-
-\subsection{Molde: mediana amostral}
-$F$ tem densidade $f$ em $[0,1]$ com $f(y)\ge C_1>0$, mediana $m$, e $\hat m_n$ satisfaz $\Fn(\hat m_n^-)\le\frac12\le\Fn(\hat m_n)$. Para $y,z\in[0,1]$, $|F(y)-F(z)|\ge C_1|y-z|$. Daí, q.c.,
-\[|\hat m_n-m|\le\frac{D_n+n^{-1}}{C_1}=O\big(\sqrt{\log n/n}\big).\]
+então $|T(\Fn)-T(F)|\le L\,D_n$, logo $T(\Fn)\qc T(F)$, com $|T(\Fn)-T(F)|=O\big(\sqrt{\log n/n}\big)$ q.c.
 
 %=====================================================================
 \section{Dimensão VC}\secrule
@@ -158,11 +153,9 @@ $T(F)$ & $\IF(x_0)$ \\
 $\int g(y)\,dF(y)$ & $g(x_0)-T(F)$ \\
 média $\mu$ & $x_0-\mu$ \\
 variância $\sigma^2$ & $(x_0-\mu)^2-\sigma^2$ \\
-quantil $\xi_p$ $^{(*)}$ & $\dfrac{p-\I(x_0\le\xi_p)}{f(\xi_p)}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-{\scriptsize $^{(*)}$ se $F$ é derivável em $\xi_p$ com $f(\xi_p)=F'(\xi_p)>0$.}
 
 \begin{description}
   \item[Regra da cadeia] Se $T(F)=h(\theta_1,\dots,\theta_k)$ com $\theta_j=\int g_j(y)\,dF(y)$ e $h$ diferenciável:
@@ -205,7 +198,6 @@ $\hat\theta_n=T(\Fn)$; \ $\hat\theta_{-i}$ é o mesmo estimador calculado \emph{
   \item[Variância] $f$ é limitada, logo $\V[\hat f_n(x)]\le\dfrac{C}{nh}$.
   \item[Risco] $\MSE(\hat f_n(x))\le C\big(h^{2\beta}+\frac1{nh}\big)$ para todos $x,h$. Com $h=n^{-1/(2\beta+1)}$ os dois termos são iguais e
   \[\sup_x\MSE(\hat f_n(x))\le2C\,n^{-\frac{2\beta}{2\beta+1}}=O\big(n^{-\frac{2\beta}{2\beta+1}}\big).\]
-  \item[KDE bivariado] (Aula 12) $\hat f_h(x,z)=\frac1{nh^2}\sum_iK(\frac{X_i-x}h)K(\frac{Z_i-z}h)$, $\beta\le1$, $|f(x,z)-f(x',z')|\le L(|x-x'|^\beta+|z-z'|^\beta)$: viés $\le2L\kappa_0\kappa_\beta h^\beta$, variância $\le\frac{C}{nh^2}$. Com $h=n^{-1/(2\beta+2)}$: $\MSE=O\big(n^{-\frac{\beta}{\beta+1}}\big)$. A taxa $n^{-\frac{\beta}{\beta+1}}$ é mais lenta que $n^{-\frac{2\beta}{2\beta+1}}$ (caso $d=1$).
   \item[Validação cruzada] $\hat f_{-i}(x)=\frac1{(n-1)h}\sum_{j\ne i}K(\frac{X_j-x}h)$ (sem $X_i$):
   \[\CV(h)=\int\hat f_n(x)^2\,dx-\frac2n\sum_{i=1}^n\hat f_{-i}(X_i),\]
   \[\E[\CV(h)]=\E\!\int\big(\hat f_n(x)-f(x)\big)^2dx-\int f(x)^2dx.\]
@@ -227,14 +219,13 @@ Modelo: $Y_i=r(X_i)+\varepsilon_i$, \ $\E[\varepsilon_i\mid X_i]=0$, \ $\V[\vare
 \begin{description}
   \item[Linear smoother] $\hat r_n(x)=\sum_{i=1}^n\ell_i(x)\,Y_i$, com pesos $\ell_i(x)$ que dependem de $x$ e dos $X_i$, mas não dos $Y_i$.
   \item[Nadaraya-Watson] $\ell_i(x)=\dfrac{K\big((X_i-x)/h\big)}{\sum_{s=1}^nK\big((X_s-x)/h\big)}$.
-  \item[Regressograma] $\ell_i(x)=\I(X_i\in B_j)/n_j$ se $x\in B_j$, com $n_j=\#\{i:X_i\in B_j\}$.
   \item[Viés e variância (dado $\X$)] Se $\sum_i\ell_i(x)=1$:
   \[\E[\hat r_n(x)\mid\X]-r(x)=\sum_{i=1}^n\ell_i(x)\big(r(X_i)-r(x)\big),\]
   \[\V[\hat r_n(x)\mid\X]=\sigma^2\sum_{i=1}^n\ell_i(x)^2.\]
   \item[Risco ($\beta\le1$)] Se $r\in\Sigma(\beta,L)$ e, para $x$ e $h$ fixos: $\sum_i\ell_i(x)=1$; $\ell_i(x)=0$ quando $|X_i-x|>h$; $\sum_i|\ell_i(x)|\le C_0$; $\max_i|\ell_i(x)|\le\frac{C_0}{nh}$. Então
   \[|\textrm{viés}|\le LC_0h^\beta,\qquad \V[\hat r_n(x)\mid\X]\le\frac{\sigma^2C_0^2}{nh}.\]
   Mesma taxa do KDE. (Para $\beta>1$, exigir também $\sum_i\ell_i(x)(X_i-x)^j=0$, $j=1,\dots,\ell$.)
-  \item[Validação cruzada] Para Nadaraya-Watson, regressograma e mínimos quadrados, com $L_{ii}=\ell_i(X_i)$:
+  \item[Validação cruzada] Se $\ell_j(x)=g_j(x)/\sum_sg_s(x)$, com $g_j(x)\ge0$ dependendo só de $x$ e $X_j$ (ex.: Nadaraya-Watson), ou para mínimos quadrados; com $L_{ii}=\ell_i(X_i)$:
   \[\CV=\frac1n\sum_{i=1}^n\Big(\frac{Y_i-\hat r_n(X_i)}{1-L_{ii}}\Big)^2.\]
 \end{description}
 
