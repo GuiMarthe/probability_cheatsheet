@@ -85,7 +85,9 @@ O mesmo vale com $h\to0$ no lugar de $n\to\infty$, e com $C$ que não depende de
 %=====================================================================
 \section{Ferramentas}\secrule
 \begin{description}
-  \item[Chebyshev] Se $\E[T]=\theta$: \quad $\P(|T-\theta|\ge t)\le \dfrac{\V(T)}{t^2}$.
+  \item[Markov] Denotando $\nu_{nr}=\E|T_n-\theta|^r<\infty$, para algum $r>0$, vale, para $t>0$,
+  \[\P\big(|T_n-\theta|>t\big)\le\frac{\nu_{nr}}{t^r}.\]
+  \item[Chebyshev] Caso $r=2$ com $\E[T_n]=\theta$: \quad $\P(|T_n-\theta|>t)\le \dfrac{\V(T_n)}{t^2}$.
   \item[Hoeffding] $Y_1,\dots,Y_n$ independentes, $\E[Y_i]=0$ e $a_i\le Y_i\le b_i$. Para $\varepsilon>0$ e qualquer $t>0$,
   \[\P\Big(\sum_{i=1}^nY_i\ge\varepsilon\Big)\le e^{-t\varepsilon}\prod_{i=1}^ne^{t^2(b_i-a_i)^2/8}.\]
   Escolhendo $t=4\varepsilon/\sum_i(b_i-a_i)^2$: \ $\le\exp\!\big(-2\varepsilon^2/\sum_i(b_i-a_i)^2\big)$. \\
