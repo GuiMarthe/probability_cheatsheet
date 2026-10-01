@@ -149,7 +149,7 @@ semiespaços em $\R^d$ & $d+1$ \\
 %=====================================================================
 \section{Funcionais e função de influência}\secrule
 \begin{description}
-  \item[Funcional] Uma função $T$ que recebe uma FD e devolve um número: $\theta=T(F)$. O estimador plug-in é $T(\Fn)$.
+  \item[Funcional] $T:\{\text{FDs}\}\to\R$, \ $F\mapsto\theta=T(F)$, \textbf{um número}. O plug-in $T(\Fn)$ é aleatório porque $\Fn$ depende da amostra.
   \item[Funcional linear] Existe uma função $g:\R\to\R$ tal que
   \[T(F)=\int g(y)\,dF(y)=\E_F[g(X_1)].\]
   O plug-in é a média amostral de $g$: \ $T(\Fn)=\frac1n\sum_{i=1}^ng(X_i)$. \\
@@ -162,7 +162,7 @@ semiespaços em $\R^d$ & $d+1$ \\
   sorteia de $F$ com prob.\ $1-\varepsilon$ e devolve $x_0$ com prob.\ $\varepsilon$.
   \item[Função de influência] Efeito em $T$ de contaminar $F$ no ponto $x_0$:
   \[\IF(x_0)=\lim_{\varepsilon\to0^+}\frac{T(F_\varepsilon)-T(F)}{\varepsilon}=\frac{d}{d\varepsilon}T(F_\varepsilon)\Big|_{\varepsilon=0}.\]
-  Sempre vale $\int\IF(y)\,dF(y)=0$: use para conferir a conta.
+  $\IF:\R\to\R$ é uma \textbf{função}, construída a partir de $T$ em $F$. Com $X\sim F$, $\IF(X)$ é uma \textbf{v.a.} com $\E_F[\IF(X)]=\int\IF(y)\,dF(y)=0$ (use para conferir a conta) e $\V_F[\IF(X)]=\int\IF(y)^2dF(y)=:\tau^2$.
 \end{description}
 
 \begin{center}
@@ -180,7 +180,7 @@ variância $\sigma^2$ & $(x_0-\mu)^2-\sigma^2$ \\
 \begin{description}
   \item[Regra da cadeia] Se $T(F)=h(\theta_1,\dots,\theta_k)$ com $\theta_j=\int g_j(y)\,dF(y)$ e $h$ diferenciável:
   \[\IF(x_0)=\sum_{j=1}^k\frac{\partial h}{\partial\theta_j}(\theta_1,\dots,\theta_k)\,\big(g_j(x_0)-\theta_j\big).\]
-  \item[Expansão de von Mises] Suposição: $T(G)-T(F)=\int\IF(y)\,d(G-F)(y)+R(G,F)$, com $\sqrt n\,R(\Fn,F)=o_P(1)$ e $\tau^2=\int\IF(y)^2dF(y)\in(0,\infty)$.
+  \item[Expansão de von Mises] Suposição: $T(G)-T(F)=\int\IF(y)\,d(G-F)(y)+R(G,F)$ (o IF faz o papel do gradiente), com $\sqrt n\,R(\Fn,F)=o_P(1)$ e $\tau^2\in(0,\infty)$.
   \item[Normalidade assintótica] Sob essa suposição,
   \[\sqrt n\big(T(\Fn)-T(F)\big)=\frac1{\sqrt n}\sum_{i=1}^n\IF(X_i)+o_P(1)\dto N(0,\tau^2).\]
   Em particular, $T(\Fn)-T(F)=O_P(n^{-1/2})$ (convergência em distribuição implica $O_P(1)$).
