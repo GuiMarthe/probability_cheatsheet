@@ -100,6 +100,14 @@ $b_n>0$ é uma sequência determinística.
   \item[Método delta] Se $\sqrt n(Y_n-\mu)\dto N(0,\sigma^2)$ e $g$ é derivável em $\mu$:
   \[\sqrt n\big(g(Y_n)-g(\mu)\big)\dto N\big(0,\ g'(\mu)^2\sigma^2\big).\]
   \item[Viés e variância] $\MSE(\hat\theta)=\E[(\hat\theta-\theta)^2]=\big(\E[\hat\theta]-\theta\big)^2+\V(\hat\theta)$.
+  \item[Banda ótima (Aula 1, Lema 4)] Se o viés é $\le Lh$ e a variância é $\le\frac{C}{nh}$, o MSE é cotado por
+  \[g_C(h)=\underbrace{L^2h^2}_{\text{viés}^2}+\underbrace{\frac{C}{nh}}_{\text{variância}},\qquad h>0.\]
+  $C>0$ é a constante da cota da variância (não depende de $n$ nem de $h$). Histograma: $C=1+L/2$ no MSE pontual (usa $f\le1+L/2$) e $C=1$ no MISE (usa $\int_0^1f=1$). \\
+  $g_C$ é convexa e minimizada em
+  \[h_C=\Big(\frac{C}{2L^2n}\Big)^{1/3},\qquad g_C(h_C)=3\cdot2^{-2/3}(LC)^{2/3}\,n^{-2/3}.\]
+  $h_C$ minimiza a \emph{cota}, não o MSE, e depende de $L$ e $C$ desconhecidos (na prática: validação cruzada). \\
+  \emph{Generalização} (mesma conta, não está nas notas): $Ah^{2\beta}+\frac{B}{nh}$, com $A,B>0$, tem único ponto crítico em $h>0$, que é o mínimo:
+  \[h^*=\Big(\frac{B}{2\beta A\,n}\Big)^{\frac1{2\beta+1}},\qquad\text{valor}=O\big(n^{-\frac{2\beta}{2\beta+1}}\big).\]
 \end{description}
 
 %=====================================================================
