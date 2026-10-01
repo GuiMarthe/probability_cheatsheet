@@ -100,14 +100,6 @@ $b_n>0$ é uma sequência determinística.
   \item[Método delta] Se $\sqrt n(Y_n-\mu)\dto N(0,\sigma^2)$ e $g$ é derivável em $\mu$:
   \[\sqrt n\big(g(Y_n)-g(\mu)\big)\dto N\big(0,\ g'(\mu)^2\sigma^2\big).\]
   \item[Viés e variância] $\MSE(\hat\theta)=\E[(\hat\theta-\theta)^2]=\big(\E[\hat\theta]-\theta\big)^2+\V(\hat\theta)$.
-  \item[Banda ótima (Aula 1, Lema 4)] Se o viés é $\le Lh$ e a variância é $\le\frac{C}{nh}$, o MSE é cotado por
-  \[g_C(h)=\underbrace{L^2h^2}_{\text{viés}^2}+\underbrace{\frac{C}{nh}}_{\text{variância}},\qquad h>0.\]
-  $C>0$ é a constante da cota da variância (não depende de $n$ nem de $h$). Histograma: $C=1+L/2$ no MSE pontual (usa $f\le1+L/2$) e $C=1$ no MISE (usa $\int_0^1f=1$). \\
-  $g_C$ é convexa e minimizada em
-  \[h_C=\Big(\frac{C}{2L^2n}\Big)^{1/3},\qquad g_C(h_C)=3\cdot2^{-2/3}(LC)^{2/3}\,n^{-2/3}.\]
-  $h_C$ minimiza a \emph{cota}, não o MSE, e depende de $L$ e $C$ desconhecidos (na prática: validação cruzada). \\
-  \emph{Generalização} (mesma conta, não está nas notas): $Ah^{2\beta}+\frac{B}{nh}$, com $A,B>0$, tem único ponto crítico em $h>0$, que é o mínimo:
-  \[h^*=\Big(\frac{B}{2\beta A\,n}\Big)^{\frac1{2\beta+1}},\qquad\text{valor}=O\big(n^{-\frac{2\beta}{2\beta+1}}\big).\]
 \end{description}
 
 %=====================================================================
@@ -212,7 +204,24 @@ $\hat\theta_n=T(\Fn)$; \ $\hat\theta_{-i}$ é o mesmo estimador calculado \emph{
 \end{description}
 
 %=====================================================================
-\section{Estimador de densidade por kernel}\secrule
+\section{Estimação de densidade}\secrule
+\subsection{Histograma (Aula 1)}
+\begin{description}
+  \item[Definição] $[0,1]$ dividido em $m$ intervalos $B_1,\dots,B_m$ de comprimento $h=1/m$:
+  \[\hat f_n(x)=\frac1{nh}\sum_{i=1}^n\I(X_i\in B_j),\qquad x\in B_j.\]
+  \item[(A1)] $|f'(x)|\le L$ em $[0,1]$; logo $|f(u)-f(x)|\le L|u-x|$.
+  \item[Viés, cota e variância] $\big|\E[\hat f_n(x)]-f(x)\big|\le Lh$; \ $f(x)\le1+L/2$; \ $\V[\hat f_n(x)]\le\frac{f(x)+Lh}{nh}$.
+  \item[Risco] $\MSE(\hat f_n(x))\le L^2h^2+\frac{1+L/2}{nh}+\frac Ln$; \quad $\textrm{MISE}(\hat f_n)\le L^2h^2+\frac1{nh}+\frac Ln$.
+  \item[Banda ótima (Lema 4)] Os dois primeiros termos têm a forma
+  \[g_C(h)=\underbrace{L^2h^2}_{\text{viés}^2}+\underbrace{\frac{C}{nh}}_{\text{variância}},\qquad h>0,\]
+  uma cota do MSE como função da banda. $C>0$ é a constante da cota da variância (não depende de $n$ nem de $h$): $C=1+L/2$ no MSE pontual (usa $f\le1+L/2$) e $C=1$ no MISE (usa $\int_0^1f=1$). $g_C$ é convexa e minimizada em
+  \[h_C=\Big(\frac{C}{2L^2n}\Big)^{1/3},\qquad g_C(h_C)=3\cdot2^{-2/3}(LC)^{2/3}\,n^{-2/3}.\]
+  Como $\frac Ln=o(n^{-2/3})$: $\sup_x\MSE=O(n^{-2/3})$ e $\textrm{MISE}=O(n^{-2/3})$, com $m\approx1/h_C$, da ordem de $n^{1/3}$ intervalos. \\
+  $h_C$ minimiza a \emph{cota}, não o MSE, e depende de $L$ desconhecido (na prática: validação cruzada).
+  \item[Limite do método] $\hat f_n$ é constante por partes: em geral o viés é da ordem de $h$ mesmo se $f$ é mais suave, e a taxa fica em $n^{-2/3}$. O KDE com kernel de ordem $\ell$ aproveita $\beta>1$.
+\end{description}
+
+\subsection{KDE (Aula 7)}
 \begin{description}
   \item[Kernel] $K:\R\to\R$ integrável com $\int K(u)\,du=1$ e $\int K(u)^2du<\infty$. Notação: $\kappa_j=\int|u|^j|K(u)|\,du$.
   \item[Ordem $k$] $\kappa_k<\infty$ e $\int u^jK(u)\,du=0$ para $j=1,\dots,k$. Simétrico com $\kappa_1<\infty$ $\Rightarrow$ ordem $1$.
@@ -227,6 +236,9 @@ $\hat\theta_n=T(\Fn)$; \ $\hat\theta_{-i}$ é o mesmo estimador calculado \emph{
   \item[Variância] $f$ é limitada, logo $\V[\hat f_n(x)]\le\dfrac{C}{nh}$.
   \item[Risco] $\MSE(\hat f_n(x))\le C\big(h^{2\beta}+\frac1{nh}\big)$ para todos $x,h$. Com $h=n^{-1/(2\beta+1)}$ os dois termos são iguais e
   \[\sup_x\MSE(\hat f_n(x))\le2C\,n^{-\frac{2\beta}{2\beta+1}}=O\big(n^{-\frac{2\beta}{2\beta+1}}\big).\]
+  \emph{Por quê} (mesma conta do Lema 4, não está nas notas): $Ah^{2\beta}+\frac{B}{nh}$, com $A,B>0$, tem único ponto crítico em $h>0$, que é o mínimo:
+  \[h^*=\Big(\frac{B}{2\beta A\,n}\Big)^{\frac1{2\beta+1}},\qquad\text{valor}=O\big(n^{-\frac{2\beta}{2\beta+1}}\big).\]
+  Para $\beta=1$ volta a taxa $n^{-2/3}$ do histograma.
   \item[Em probabilidade] Markov com $r=2$ ($\nu_{n2}=\MSE$): $\P\big(|\hat f_n(x)-f(x)|>M\,n^{-\frac{\beta}{2\beta+1}}\big)\le\frac{2C}{M^2}$, logo $|\hat f_n(x)-f(x)|=O_P\big(n^{-\frac{\beta}{2\beta+1}}\big)$ e $\hat f_n(x)\pto f(x)$.
   \item[Validação cruzada] $\hat f_{-i}(x)=\frac1{(n-1)h}\sum_{j\ne i}K(\frac{X_j-x}h)$ (sem $X_i$):
   \[\CV(h)=\int\hat f_n(x)^2\,dx-\frac2n\sum_{i=1}^n\hat f_{-i}(X_i),\]
@@ -240,7 +252,7 @@ $\hat\theta_n=T(\Fn)$; \ $\hat\theta_{-i}$ é o mesmo estimador calculado \emph{
   \item Usar $\int K(u)\,du=1$ para escrever $\E[\hat f_n(x)]-f(x)=\int K(u)\big(f(x+uh)-f(x)\big)du$.
   \item Cotar $|f(x+uh)-f(x)|$ pela suavidade.
   \item Variância: $\V(Z)\le\E[Z^2]$.
-  \item Escolher $h$ que iguala viés$^2$ e variância.
+  \item Escolher $h$ que iguala viés$^2$ e variância (ver Risco e Lema 4).
 \end{enumerate}
 
 %=====================================================================
@@ -254,7 +266,7 @@ Modelo: $Y_i=r(X_i)+\varepsilon_i$, \ $\E[\varepsilon_i\mid X_i]=0$, \ $\V[\vare
   \[\V[\hat r_n(x)\mid\X]=\sigma^2\sum_{i=1}^n\ell_i(x)^2.\]
   \item[Risco ($\beta\le1$)] Se $r\in\Sigma(\beta,L)$ e, para $x$ e $h$ fixos: $\sum_i\ell_i(x)=1$; $\ell_i(x)=0$ quando $|X_i-x|>h$; $\sum_i|\ell_i(x)|\le C_0$; $\max_i|\ell_i(x)|\le\frac{C_0}{nh}$. Então
   \[|\textrm{viés}|\le LC_0h^\beta,\qquad \V[\hat r_n(x)\mid\X]\le\frac{\sigma^2C_0^2}{nh}.\]
-  Mesma taxa do KDE. (Para $\beta>1$, exigir também $\sum_i\ell_i(x)(X_i-x)^j=0$, $j=1,\dots,\ell$.)
+  Mesma cota e mesma escolha de $h$ do KDE. (Para $\beta>1$, exigir também $\sum_i\ell_i(x)(X_i-x)^j=0$, $j=1,\dots,\ell$.)
   \item[Validação cruzada] Se $\ell_j(x)=g_j(x)/\sum_sg_s(x)$, com $g_j(x)\ge0$ dependendo só de $x$ e $X_j$ (ex.: Nadaraya-Watson), ou para mínimos quadrados; com $L_{ii}=\ell_i(X_i)$:
   \[\CV=\frac1n\sum_{i=1}^n\Big(\frac{Y_i-\hat r_n(X_i)}{1-L_{ii}}\Big)^2.\]
 \end{description}
