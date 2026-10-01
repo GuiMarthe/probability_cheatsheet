@@ -60,7 +60,15 @@
 
 {\normalsize\bfseries Formulário resumido -- Estatística Não-Paramétrica}\par
 \smallskip
-\textbf{Convenção:} $X_1,\dots,X_n$ i.i.d. com função de distribuição (FD) $F$. Toda função aparece com o seu argumento: $F(x)$, $g(x)$, $K(u)$, etc.
+\textbf{Convenções.} $X_1,\dots,X_n$ i.i.d. com função de distribuição (FD) $F$. Toda função aparece com o seu argumento: $F(y)$, $g(y)$, $K(u)$, etc. A letra $y$ é sempre a variável de integração ou o argumento de uma FD; $x_0$ é um ponto fixo.
+
+\textbf{Ordens.} Para sequências positivas $a_n,b_n$:
+\begin{itemize}
+  \item $a_n=O(b_n)$: existe $C>0$, que não depende de $n$, tal que $a_n\le C\,b_n$ para $n$ grande.
+  \item $a_n=o(b_n)$: $a_n/b_n\to0$.
+  \item $Z_n=o_P(1)$: $Z_n\pto0$.
+\end{itemize}
+O mesmo vale com $h\to0$ no lugar de $n\to\infty$, e com $C$ que não depende de $x$ (cota uniforme).
 
 %=====================================================================
 \section{Ferramentas}\secrule
@@ -78,36 +86,36 @@
 %=====================================================================
 \section{Distribuição empírica}\secrule
 \begin{description}
-  \item[Definição] $\displaystyle \Fn(x)=\frac1n\sum_{i=1}^n\I(X_i\le x)$, \ para cada $x\in\R$.
-  \item[Num ponto $x$ fixo] $n\Fn(x)\sim\textrm{Binomial}\big(n,F(x)\big)$, logo
-  \[\E[\Fn(x)]=F(x),\qquad \V[\Fn(x)]=\frac{F(x)\big(1-F(x)\big)}{n}\le\frac1{4n}.\]
-  \item[Erro máximo] $D_n=\sup_{x\in\R}|\Fn(x)-F(x)|$.
+  \item[Definição] $\displaystyle \Fn(y)=\frac1n\sum_{i=1}^n\I(X_i\le y)$, \ para cada $y\in\R$.
+  \item[Num ponto $y$ fixo] $n\Fn(y)\sim\textrm{Binomial}\big(n,F(y)\big)$, logo
+  \[\E[\Fn(y)]=F(y),\qquad \V[\Fn(y)]=\frac{F(y)\big(1-F(y)\big)}{n}\le\frac1{4n}.\]
+  \item[Erro máximo] $D_n=\sup_{y\in\R}|\Fn(y)-F(y)|$.
   \item[Glivenko-Cantelli] $D_n\qc0$.
-  \item[DKW] $\P(D_n\ge\varepsilon)\le2e^{-2n\varepsilon^2}$, para todo $\varepsilon>0$. \\
-  Consequência: quase certamente, $D_n=O\big(\sqrt{\log n/n}\big)$.
+  \item[DKW] $\P(D_n\ge\varepsilon)\le2e^{-2n\varepsilon^2}$, para todo $\varepsilon>0$ e todo $n$.
+  \item[Taxa q.c.] Quase certamente, $D_n\le2\sqrt{\log n/n}$ para todo $n$ suficientemente grande. Isto é, $D_n=O\big(\sqrt{\log n/n}\big)$ q.c.
 \end{description}
 
 \subsection{Molde: consistência por Lipschitz}
 Se existe $L>0$ tal que, para quaisquer FDs $G_1,G_2$,
-\[|T(G_1)-T(G_2)|\le L\sup_{x}|G_1(x)-G_2(x)|,\]
-então $|T(\Fn)-T(F)|\le L\,D_n\qc0$. \\
-\emph{Exemplo:} $T(F)=\int_0^MF(x)^2\,dx$. Como $|a^2-b^2|=|a+b||a-b|\le2|a-b|$ para $a,b\in[0,1]$, vale $L=2M$.
+\[|T(G_1)-T(G_2)|\le L\sup_{y}|G_1(y)-G_2(y)|,\]
+então $|T(\Fn)-T(F)|\le L\,D_n$, logo $T(\Fn)\qc T(F)$, com $|T(\Fn)-T(F)|=O\big(\sqrt{\log n/n}\big)$ q.c. \\
+\emph{Exemplo:} $T(F)=\int_0^MF(y)^2\,dy$. Como $|a^2-b^2|=|a+b|\,|a-b|\le2|a-b|$ para $a,b\in[0,1]$, vale $L=2M$.
 
 \subsection{Molde: mediana amostral}
-Se a densidade satisfaz $f(x)\ge C_1>0$, então $|F(x)-F(y)|\ge C_1|x-y|$. Daí
-\[|\hat m_n-m|\le\frac{D_n+n^{-1}}{C_1}\qc0.\]
+$F$ tem densidade $f$ em $[0,1]$ com $f(y)\ge C_1>0$, mediana $m$, e $\hat m_n$ satisfaz $\Fn(\hat m_n^-)\le\frac12\le\Fn(\hat m_n)$. Para $y,z\in[0,1]$, $|F(y)-F(z)|\ge C_1|y-z|$. Daí, q.c.,
+\[|\hat m_n-m|\le\frac{D_n+n^{-1}}{C_1}=O\big(\sqrt{\log n/n}\big).\]
 
 %=====================================================================
 \section{Dimensão VC}\secrule
 $\mathcal C$ é uma classe de conjuntos e $A=\{x_1,\dots,x_k\}$ é um conjunto finito de pontos.
 \begin{description}
   \item[Fragmentar] $\mathcal C$ fragmenta $A$ se \emph{todo} subconjunto de $A$ é da forma $C\cap A$ para algum $C\in\mathcal C$.
-  \item[Dimensão VC] $\VC(\mathcal C)=$ o maior $k$ tal que \emph{algum} conjunto de $k$ pontos é fragmentado.
-  \item[Coeficiente] $s(\mathcal C,n)=$ número máximo de subconjuntos distintos $C\cap A$, entre conjuntos $A$ com $n$ pontos.
-  \item[Sauer-Shelah] Se $\VC(\mathcal C)=d$, então $s(\mathcal C,n)\le(n+1)^d$.
+  \item[Coeficiente] $s(\mathcal C,n)=$ número máximo de subconjuntos distintos $C\cap A$, entre conjuntos $A$ com $n$ pontos. Sempre $s(\mathcal C,n)\le2^n$.
+  \item[Dimensão VC] $\VC(\mathcal C)=\sup\{n:s(\mathcal C,n)=2^n\}$, isto é, o maior $n$ tal que \emph{algum} conjunto de $n$ pontos é fragmentado.
+  \item[Sauer-Shelah] Se $\VC(\mathcal C)=d<\infty$, então $s(\mathcal C,n)\le(n+1)^d$.
   \item[Desigualdade de VC] Com $P_n(C)=\frac1n\sum_i\I(X_i\in C)$:
   \[\P\Big(\sup_{C\in\mathcal C}|P_n(C)-P(C)|>\varepsilon\Big)\le8\,s(\mathcal C,n)\,e^{-n\varepsilon^2/32}.\]
-  Com Sauer-Shelah e Borel-Cantelli: $\VC<\infty\Rightarrow\sup_{C}|P_n(C)-P(C)|\qc0$.
+  Com Sauer-Shelah e Borel-Cantelli: $\VC(\mathcal C)<\infty\Rightarrow\sup_{C\in\mathcal C}|P_n(C)-P(C)|\qc0$, para toda $P$.
 \end{description}
 \begin{center}
 \begin{tabular}{lc}
@@ -121,46 +129,49 @@ semiespaços em $\R^d$ & $d+1$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\textbf{Receita para mostrar $\VC=d$:} (i) exiba \emph{um} conjunto de $d$ pontos e todos os seus subconjuntos; (ii) para \emph{qualquer} conjunto de $d+1$ pontos, ordene $x_1<\dots<x_{d+1}$ e encontre um subconjunto que nenhum $C$ produz.
+\textbf{Receita para mostrar $\VC(\mathcal C)=d$:} (i) exiba \emph{um} conjunto de $d$ pontos e obtenha todos os seus subconjuntos; (ii) para \emph{qualquer} conjunto de $d+1$ pontos, ordene $x_1<\dots<x_{d+1}$ e encontre um subconjunto que nenhum $C\in\mathcal C$ produz.
 
 %=====================================================================
 \section{Funcionais e função de influência}\secrule
 \begin{description}
   \item[Funcional] Uma função $T$ que recebe uma FD e devolve um número: $\theta=T(F)$. O estimador plug-in é $T(\Fn)$.
   \item[Funcional linear] Existe uma função $g:\R\to\R$ tal que
-  \[T(F)=\int g(x)\,dF(x)=\E_F[g(X)].\]
+  \[T(F)=\int g(y)\,dF(y)=\E_F[g(X_1)].\]
   O plug-in é a média amostral de $g$: \ $T(\Fn)=\frac1n\sum_{i=1}^ng(X_i)$. \\
-  \emph{Exemplos:} média, $g(x)=x$; \ $F(t)$, $g(x)=\I(x\le t)$.
-  \item[Massa pontual em $x_0$] É a FD de uma v.a. constante igual a $x_0$:
-  \[\delta_{x_0}(y)=\I(y\ge x_0),\qquad y\in\R.\]
+  \emph{Exemplos:} média, $g(y)=y$; \ $F(t)$ com $t$ fixo, $g(y)=\I(y\le t)$.
+  \item[Massa pontual em $x_0$] É a FD de uma v.a. $Z$ que vale sempre $x_0$:
+  \[\delta_{x_0}(y)=\P(Z\le y)=\I(x_0\le y),\qquad y\in\R.\]
+  Vale $0$ para $y<x_0$ e $1$ para $y\ge x_0$. É o $\Fn$ de uma única observação em $x_0$.
   \item[Contaminação] Para $\varepsilon\in[0,1]$, a FD
   \[F_{\varepsilon}(y)=(1-\varepsilon)F(y)+\varepsilon\,\delta_{x_0}(y),\qquad y\in\R,\]
   sorteia de $F$ com prob.\ $1-\varepsilon$ e devolve $x_0$ com prob.\ $\varepsilon$.
-  \item[Função de influência] Efeito em $T$ de uma observação extra em $x_0$:
+  \item[Função de influência] Efeito em $T$ de contaminar $F$ no ponto $x_0$:
   \[\IF(x_0)=\lim_{\varepsilon\downarrow0}\frac{T(F_\varepsilon)-T(F)}{\varepsilon}=\frac{d}{d\varepsilon}T(F_\varepsilon)\Big|_{\varepsilon=0}.\]
-  Sempre vale $\int\IF(x)\,dF(x)=0$: use para conferir a conta.
+  Sempre vale $\int\IF(y)\,dF(y)=0$: use para conferir a conta.
 \end{description}
 
 \begin{center}
 \begin{tabular}{ll}
 \toprule
-$T(F)$ & $\IF(x)$ \\
+$T(F)$ & $\IF(x_0)$ \\
 \midrule
-$\int g(y)\,dF(y)$ & $g(x)-T(F)$ \\
-média $\mu$ & $x-\mu$ \\
-variância $\sigma^2$ & $(x-\mu)^2-\sigma^2$ \\
-quantil $\xi_p$ & $\dfrac{p-\I(x\le\xi_p)}{f(\xi_p)}$ \\
+$\int g(y)\,dF(y)$ & $g(x_0)-T(F)$ \\
+média $\mu$ & $x_0-\mu$ \\
+variância $\sigma^2$ & $(x_0-\mu)^2-\sigma^2$ \\
+quantil $\xi_p$ $^{(*)}$ & $\dfrac{p-\I(x_0\le\xi_p)}{f(\xi_p)}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+{\scriptsize $^{(*)}$ se $F$ é derivável em $\xi_p$ com $f(\xi_p)=F'(\xi_p)>0$.}
 
 \begin{description}
-  \item[Regra da cadeia] Se $T(F)=h(\theta_1,\dots,\theta_k)$ com $\theta_j=\int g_j(y)\,dF(y)$:
-  \[\IF(x)=\sum_{j=1}^k\frac{\partial h}{\partial\theta_j}(\theta_1,\dots,\theta_k)\,\big(g_j(x)-\theta_j\big).\]
-  \item[Normalidade assintótica] Sob regularidade (expansão de von Mises),
-  \[\sqrt n\big(T(\Fn)-T(F)\big)\dto N(0,\tau^2),\quad \tau^2=\int\IF(x)^2\,dF(x).\]
-  \item[Intervalo de confiança] $\hat\tau^2=\frac1n\sum_{i=1}^n\widehat{\IF}(X_i)^2$ e \
-  $T(\Fn)\pm z_{1-\alpha/2}\,\hat\tau/\sqrt n$.
+  \item[Regra da cadeia] Se $T(F)=h(\theta_1,\dots,\theta_k)$ com $\theta_j=\int g_j(y)\,dF(y)$ e $h$ diferenciável:
+  \[\IF(x_0)=\sum_{j=1}^k\frac{\partial h}{\partial\theta_j}(\theta_1,\dots,\theta_k)\,\big(g_j(x_0)-\theta_j\big).\]
+  \item[Expansão de von Mises] Suposição: $T(G)-T(F)=\int\IF(y)\,d(G-F)(y)+R(G,F)$, com $\sqrt n\,R(\Fn,F)=o_P(1)$ e $\tau^2=\int\IF(y)^2dF(y)\in(0,\infty)$.
+  \item[Normalidade assintótica] Sob essa suposição,
+  \[\sqrt n\big(T(\Fn)-T(F)\big)=\frac1{\sqrt n}\sum_{i=1}^n\IF(X_i)+o_P(1)\dto N(0,\tau^2).\]
+  \item[Intervalo de confiança] Se $\hat\tau^2=\frac1n\sum_{i=1}^n\widehat{\IF}(X_i)^2$ é consistente para $\tau^2$ ($\widehat{\IF}$: IF calculada em $\Fn$):
+  \ $T(\Fn)\pm z_{1-\alpha/2}\,\hat\tau/\sqrt n$.
 \end{description}
 
 %=====================================================================
@@ -170,47 +181,49 @@ $\hat\theta_n=T(\Fn)$; \ $\hat\theta_{-i}$ é o mesmo estimador calculado \emph{
   \item[Jackknife] Viés: \ $\hat b_{\textrm{jack}}=(n-1)(\bar\theta-\hat\theta_n)$. \\
   Estimador corrigido: \ $\hat\theta_{\textrm{jack}}=\hat\theta_n-\hat b_{\textrm{jack}}=n\hat\theta_n-(n-1)\bar\theta$. \\
   Variância: \ $\hat v_{\textrm{jack}}=\frac{n-1}{n}\sum_{i=1}^n(\hat\theta_{-i}-\bar\theta)^2$.
-  \item[Por que funciona] Se $\E[\hat\theta_n]=\theta+\frac an+\frac b{n^2}+\dots$, então o viés de $\hat\theta_{\textrm{jack}}$ é $O(n^{-2})$.
+  \item[Por que funciona] Se $\E[\hat\theta_n]=\theta+\frac an+\frac b{n^2}+O(n^{-3})$, com $a,b$ que não dependem de $n$, então $\E[\hat b_{\textrm{jack}}]=\frac an+O(n^{-2})$ e $\E[\hat\theta_{\textrm{jack}}]-\theta=O(n^{-2})$, enquanto o viés de $\hat\theta_n$ é $\frac an+O(n^{-2})$.
   \item[Identidade útil] $\bar X_{-i}=\dfrac{n\bar X-X_i}{n-1}$.
-  \item[Bootstrap] Sorteie $X_1^*,\dots,X_n^*$ com reposição de $X_1,\dots,X_n$ e calcule $\hat\theta^*$. Repita $B$ vezes: $\hat\theta^*_1,\dots,\hat\theta^*_B$.
-  \item[Erro padrão] $\hat{\textrm{se}}_{\textrm{boot}}^2=\frac1B\sum_{b=1}^B\big(\hat\theta^*_b-\bar\theta^*\big)^2$, \ $\bar\theta^*=\frac1B\sum_b\hat\theta^*_b$.
-  \item[Viés] $\hat b^*=\bar\theta^*-\hat\theta_n$.
-  \item[Intervalos] normal: $\hat\theta_n\pm z_{1-\alpha/2}\,\hat{\textrm{se}}_{\textrm{boot}}$; \ percentil: quantis $\alpha/2$ e $1-\alpha/2$ dos $\hat\theta^*_b$.
+  \item[Bootstrap] Sorteie $X_1^*,\dots,X_n^*$ com reposição de $X_1,\dots,X_n$ (i.i.d. de $\Fn$) e calcule $\hat\theta^*=T(\Fn^*)$. Repita $B$ vezes: $\hat\theta^*_1,\dots,\hat\theta^*_B$; \ $\bar\theta^*=\frac1B\sum_b\hat\theta^*_b$.
+  \item[Erro padrão] $\hat{\textrm{se}}_{\textrm{boot}}^2=\frac1{B-1}\sum_{b=1}^B\big(\hat\theta^*_b-\bar\theta^*\big)^2$.
+  \item[Viés] $\hat b^*=\E^*[\hat\theta^*]-\hat\theta_n$ ($\E^*$: esperança sob $\Fn$), aproximado por $\bar\theta^*-\hat\theta_n$.
+  \item[Intervalos] t: $\hat\theta_n\pm z_{1-\alpha/2}\,\hat{\textrm{se}}_{\textrm{boot}}$; \ percentil: $[q^*_{\alpha/2},\,q^*_{1-\alpha/2}]$, quantis amostrais dos $\hat\theta^*_b$.
 \end{description}
 
 %=====================================================================
 \section{Estimador de densidade por kernel}\secrule
 \begin{description}
-  \item[Kernel] $K:\R\to\R$ com $\int K(u)\,du=1$. Ordem $k$: $\int u^jK(u)\,du=0$ para $j=1,\dots,k$ (todo kernel simétrico tem ordem $1$).
+  \item[Kernel] $K:\R\to\R$ integrável com $\int K(u)\,du=1$ e $\int K(u)^2du<\infty$. Notação: $\kappa_j=\int|u|^j|K(u)|\,du$.
+  \item[Ordem $k$] $\kappa_k<\infty$ e $\int u^jK(u)\,du=0$ para $j=1,\dots,k$. Simétrico com $\kappa_1<\infty$ $\Rightarrow$ ordem $1$.
   \item[KDE] Com banda $h>0$:
   \[\hat f_n(x)=\frac1{nh}\sum_{i=1}^nK\Big(\frac{X_i-x}{h}\Big).\]
-  \item[Esperança] Trocando $u=(y-x)/h$:
-  \[\E[\hat f_n(x)]=\int K(u)\,f(x+uh)\,du.\]
-  \item[Suavidade (Hölder)] $f\in\Sigma(\beta,L)$: com $\ell$ o maior inteiro $<\beta$, \ $|f^{(\ell)}(y)-f^{(\ell)}(x)|\le L|y-x|^{\beta-\ell}$. Para $\beta\le1$: $|f(y)-f(x)|\le L|y-x|^\beta$.
-  \item[Viés] Kernel de ordem $\ell$ com $\int|u|^\beta|K(u)|\,du<\infty$:
-  \[\big|\E[\hat f_n(x)]-f(x)\big|\le C\,h^{\beta}.\]
-  \item[Variância] $f$ limitada e $\int K(u)^2du<\infty$: \ $\V[\hat f_n(x)]\le\dfrac{C}{nh}$.
-  \item[Banda ótima] $\MSE\le C\big(h^{2\beta}+\frac1{nh}\big)$. Igualando os termos:
-  \[h\asymp n^{-1/(2\beta+1)},\qquad \MSE\asymp n^{-2\beta/(2\beta+1)}.\]
-  \item[Em $d$ dimensões] variância $\asymp\frac1{nh^d}$, logo $h\asymp n^{-1/(2\beta+d)}$ e $\MSE\asymp n^{-2\beta/(2\beta+d)}$.
-  \item[Validação cruzada] $\hat f_{-i}$ é o KDE sem $X_i$:
+  \item[Esperança e variância] Trocando $u=(y-x)/h$:
+  \[\E[\hat f_n(x)]=\int K(u)\,f(x+uh)\,du,\]
+  \[\V[\hat f_n(x)]\le\frac1{nh}\int K(u)^2f(x+uh)\,du\le\frac{\sup_yf(y)\int K(u)^2du}{nh}.\]
+  \item[Hölder $\Sigma(\beta,L)$] $\ell$ é o maior inteiro \emph{estritamente} menor que $\beta$; $f$ é $\ell$ vezes derivável e $|f^{(\ell)}(y)-f^{(\ell)}(x)|\le L|y-x|^{\beta-\ell}$. Para $\beta\le1$: $\ell=0$ e $|f(y)-f(x)|\le L|y-x|^\beta$.
+  \item[Hipótese] $f\in\Sigma(\beta,L)$ e $K$ limitado, de ordem $\ell$, com $\kappa_\beta<\infty$. ($C$ depende só de $\beta,L,K$.)
+  \item[Viés] $\big|\E[\hat f_n(x)]-f(x)\big|\le C\,h^{\beta}$ \ (com $C=L\kappa_\beta/\ell!$).
+  \item[Variância] $f$ é limitada, logo $\V[\hat f_n(x)]\le\dfrac{C}{nh}$.
+  \item[Risco] $\MSE(\hat f_n(x))\le C\big(h^{2\beta}+\frac1{nh}\big)$ para todos $x,h$. Com $h=n^{-1/(2\beta+1)}$ os dois termos são iguais e
+  \[\sup_x\MSE(\hat f_n(x))\le2C\,n^{-\frac{2\beta}{2\beta+1}}=O\big(n^{-\frac{2\beta}{2\beta+1}}\big).\]
+  \item[KDE bivariado] (Aula 12) $\hat f_h(x,z)=\frac1{nh^2}\sum_iK(\frac{X_i-x}h)K(\frac{Z_i-z}h)$, $\beta\le1$, $|f(x,z)-f(x',z')|\le L(|x-x'|^\beta+|z-z'|^\beta)$: viés $\le2L\kappa_0\kappa_\beta h^\beta$, variância $\le\frac{C}{nh^2}$. Com $h=n^{-1/(2\beta+2)}$: $\MSE=O\big(n^{-\frac{\beta}{\beta+1}}\big)$. A taxa $n^{-\frac{\beta}{\beta+1}}$ é mais lenta que $n^{-\frac{2\beta}{2\beta+1}}$ (caso $d=1$).
+  \item[Validação cruzada] $\hat f_{-i}(x)=\frac1{(n-1)h}\sum_{j\ne i}K(\frac{X_j-x}h)$ (sem $X_i$):
   \[\CV(h)=\int\hat f_n(x)^2\,dx-\frac2n\sum_{i=1}^n\hat f_{-i}(X_i),\]
-  e $\E[\CV(h)]=\E\!\int(\hat f_n(x)-f(x))^2dx-\int f(x)^2dx$.
+  \[\E[\CV(h)]=\E\!\int\big(\hat f_n(x)-f(x)\big)^2dx-\int f(x)^2dx.\]
 \end{description}
 
 \subsection{Roteiro para viés/variância/MSE}
 \begin{enumerate}[leftmargin=10pt,itemsep=0pt,topsep=1pt]
   \item Escrever a esperança como integral em $y$.
-  \item Trocar $u=(y-x)/h$.
-  \item Usar $\int K(u)\,du=1$ para subtrair $f(x)$ dentro da integral.
+  \item Trocar $u=(y-x)/h$, \ $dy=h\,du$.
+  \item Usar $\int K(u)\,du=1$ para escrever $\E[\hat f_n(x)]-f(x)=\int K(u)\big(f(x+uh)-f(x)\big)du$.
   \item Cotar $|f(x+uh)-f(x)|$ pela suavidade.
   \item Variância: $\V(Z)\le\E[Z^2]$.
-  \item Igualar viés$^2$ e variância para achar $h$.
+  \item Escolher $h$ que iguala viés$^2$ e variância.
 \end{enumerate}
 
 %=====================================================================
 \section{Regressão: linear smoothers}\secrule
-Modelo: $Y_i=r(X_i)+\varepsilon_i$, \ $\E[\varepsilon_i\mid X_i]=0$, \ $\V[\varepsilon_i\mid X_i]=\sigma^2$.
+Modelo: $Y_i=r(X_i)+\varepsilon_i$, \ $\E[\varepsilon_i\mid X_i]=0$, \ $\V[\varepsilon_i\mid X_i]=\sigma^2$; dado $\X=(X_1,\dots,X_n)$, os $\varepsilon_i$ são independentes.
 \begin{description}
   \item[Linear smoother] $\hat r_n(x)=\sum_{i=1}^n\ell_i(x)\,Y_i$, com pesos $\ell_i(x)$ que dependem de $x$ e dos $X_i$, mas não dos $Y_i$.
   \item[Nadaraya-Watson] $\ell_i(x)=\dfrac{K\big((X_i-x)/h\big)}{\sum_{s=1}^nK\big((X_s-x)/h\big)}$.
@@ -218,8 +231,10 @@ Modelo: $Y_i=r(X_i)+\varepsilon_i$, \ $\E[\varepsilon_i\mid X_i]=0$, \ $\V[\vare
   \item[Viés e variância (dado $\X$)] Se $\sum_i\ell_i(x)=1$:
   \[\E[\hat r_n(x)\mid\X]-r(x)=\sum_{i=1}^n\ell_i(x)\big(r(X_i)-r(x)\big),\]
   \[\V[\hat r_n(x)\mid\X]=\sigma^2\sum_{i=1}^n\ell_i(x)^2.\]
-  \item[Mesma taxa do KDE] Se os pesos são locais ($\ell_i(x)=0$ quando $|X_i-x|>h$) e $|\ell_i(x)|\le\frac{C}{nh}$: viés $\le Ch^\beta$, variância $\le\frac{C}{nh}$.
-  \item[Validação cruzada] Para Nadaraya-Watson, regressograma e MQ, com $L_{ii}=\ell_i(X_i)$:
+  \item[Risco ($\beta\le1$)] Se $r\in\Sigma(\beta,L)$ e, para $x$ e $h$ fixos: $\sum_i\ell_i(x)=1$; $\ell_i(x)=0$ quando $|X_i-x|>h$; $\sum_i|\ell_i(x)|\le C_0$; $\max_i|\ell_i(x)|\le\frac{C_0}{nh}$. Então
+  \[|\textrm{viés}|\le LC_0h^\beta,\qquad \V[\hat r_n(x)\mid\X]\le\frac{\sigma^2C_0^2}{nh}.\]
+  Mesma taxa do KDE. (Para $\beta>1$, exigir também $\sum_i\ell_i(x)(X_i-x)^j=0$, $j=1,\dots,\ell$.)
+  \item[Validação cruzada] Para Nadaraya-Watson, regressograma e mínimos quadrados, com $L_{ii}=\ell_i(X_i)$:
   \[\CV=\frac1n\sum_{i=1}^n\Big(\frac{Y_i-\hat r_n(X_i)}{1-L_{ii}}\Big)^2.\]
 \end{description}
 
