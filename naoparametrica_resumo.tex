@@ -232,7 +232,7 @@ $\hat\theta_n=T(\Fn)$; \ $\hat\theta_{-i}$ é o mesmo estimador calculado \emph{
   \[\V[\hat f_n(x)]\le\frac1{nh}\int K(u)^2f(x+uh)\,du\le\frac{\sup_yf(y)\int K(u)^2du}{nh}.\]
   \item[Classe de Hölder] Sejam $\beta>0$, $L>0$ e $\ell$ o maior inteiro \emph{estritamente} menor que $\beta$. $\Sigma(\beta,L)$ é o conjunto das funções $f:\R\to\R$ que são $\ell$ vezes deriváveis e tais que
   \[|f^{(\ell)}(y)-f^{(\ell)}(x)|\le L|y-x|^{\beta-\ell},\qquad\text{para todos }x,y\in\R.\]
-  Para $\beta\le1$: $\ell=0$ e a condição é $|f(y)-f(x)|\le L|y-x|^\beta$. Usada para densidades $f$ e para funções de regressão $r$.
+  Para $\beta\le1$: $\ell=0$ e a condição é $|f(y)-f(x)|\le L|y-x|^\beta$. Em particular, $\Sigma(1,L)$ é a classe das funções $L$-Lipschitz (não exige derivada), que contém as $f$ com $|f'|\le L$ da (A1) do histograma. Usada para densidades $f$ e para funções de regressão $r$.
   \item[Hipótese] $f\in\Sigma(\beta,L)$ e $K$ limitado, de ordem $\ell$, com $\kappa_\beta<\infty$. ($C$ depende só de $\beta,L,K$.)
   \item[Viés] $\big|\E[\hat f_n(x)]-f(x)\big|\le C\,h^{\beta}$ \ (com $C=L\kappa_\beta/\ell!$).
   \item[Variância] $f$ é limitada, logo $\V[\hat f_n(x)]\le\dfrac{C}{nh}$.
