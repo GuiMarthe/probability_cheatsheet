@@ -71,13 +71,28 @@
 O mesmo vale com $h\to0$ no lugar de $n\to\infty$, e com $C$ que não depende de $x$ (cota uniforme).
 
 %=====================================================================
+\section{Convergência}\secrule
+\begin{description}
+  \item[Em probabilidade] $X_n\pto X$ se, para todo $\varepsilon>0$, \ $\P(|X_n-X|>\varepsilon)\to0$ quando $n\to\infty$.
+  \item[Quase certa] $X_n\qc X$ se \ $\P\big(\lim_{n\to\infty}|X_n-X|=0\big)=1$.
+  \item[Quase certa (eventos de cauda)] Equivalentemente, para todo $\varepsilon>0$,
+  \[\P\big(|X_n-X|>\varepsilon\ \text{infinitas vezes}\big)=0,\]
+  em que $\{A_n\text{ i.v.}\}=\limsup_nA_n=\bigcap_{m\ge1}\bigcup_{n\ge m}A_n$. Também equivale a $\P\big(\sup_{n\ge m}|X_n-X|>\varepsilon\big)\to0$ quando $m\to\infty$.
+  \item[Em distribuição] $X_n\dto X$ se $\P(X_n\le t)\to\P(X\le t)$ em todo ponto $t$ de continuidade de $t\mapsto\P(X\le t)$.
+  \item[Relações] $X_n\qc X\Rightarrow X_n\pto X\Rightarrow X_n\dto X$; \ e $X_n\dto c$ (constante) $\Rightarrow X_n\pto c$.
+\end{description}
+
+%=====================================================================
 \section{Ferramentas}\secrule
 \begin{description}
   \item[Chebyshev] Se $\E[T]=\theta$: \quad $\P(|T-\theta|\ge t)\le \dfrac{\V(T)}{t^2}$.
-  \item[Hoeffding] $Y_1,\dots,Y_n$ independentes com $Y_i\in[0,1]$, $\bar Y=\frac1n\sum_{i=1}^nY_i$:
-  \[\P\big(|\bar Y-\E[\bar Y]|\ge\varepsilon\big)\le 2e^{-2n\varepsilon^2}.\]
-  \item[Borel-Cantelli] Se $\sum_{n}\P(|T_n-\theta|>\varepsilon)<\infty$ para todo $\varepsilon>0$, então $T_n\qc\theta$. \\
-  \emph{Uso:} toda cota do tipo $Ce^{-cn\varepsilon^2}$ é somável em $n$, logo dá convergência quase certa.
+  \item[Hoeffding] $Y_1,\dots,Y_n$ independentes, $\E[Y_i]=0$ e $a_i\le Y_i\le b_i$. Para $\varepsilon>0$ e qualquer $t>0$,
+  \[\P\Big(\sum_{i=1}^nY_i\ge\varepsilon\Big)\le e^{-t\varepsilon}\prod_{i=1}^ne^{t^2(b_i-a_i)^2/8}.\]
+  Escolhendo $t=4\varepsilon/\sum_i(b_i-a_i)^2$: \ $\le\exp\!\big(-2\varepsilon^2/\sum_i(b_i-a_i)^2\big)$. \\
+  Caso das aulas: $Y_i\in[0,1]$, aplicado a $Y_i-\E[Y_i]$ e a $-(Y_i-\E[Y_i])$ com $\varepsilon$ trocado por $n\varepsilon$:
+  \ $\P\big(|\bar Y-\E[\bar Y]|\ge\varepsilon\big)\le2e^{-2n\varepsilon^2}$.
+  \item[Borel-Cantelli] Se $\sum_n\P(A_n)<\infty$, então $\P(A_n\text{ i.v.})=0$. \\
+  \emph{Uso:} com $A_n=\{|T_n-\theta|>\varepsilon\}$ e a forma de cauda acima: se $\sum_n\P(|T_n-\theta|>\varepsilon)<\infty$ para todo $\varepsilon>0$, então $T_n\qc\theta$. Toda cota do tipo $Ce^{-cn\varepsilon^2}$ é somável em $n$.
   \item[Método delta] Se $\sqrt n(Y_n-\mu)\dto N(0,\sigma^2)$ e $g$ é derivável em $\mu$:
   \[\sqrt n\big(g(Y_n)-g(\mu)\big)\dto N\big(0,\ g'(\mu)^2\sigma^2\big).\]
   \item[Viés e variância] $\MSE(\hat\theta)=\E[(\hat\theta-\theta)^2]=\big(\E[\hat\theta]-\theta\big)^2+\V(\hat\theta)$.
